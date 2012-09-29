@@ -13,7 +13,7 @@ function ai_func(game){
 		return {
 			announce: {
 				dice_face: 2,
-				count: 1
+				count: game.dice_per_player * game.player_count - 1
 			}
 		};
 	}

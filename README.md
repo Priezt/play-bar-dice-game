@@ -1,14 +1,9 @@
 ```bash
-./judge.pl [-d <dice_count>] <client_program> [<client_program>...]
+node judge.js <dice per player> <player program 1> [<player program 2>...]
 ```
 
 Example:
 ```bash
-./judge.pl ./naive.py 'nc -l 7777'
+node judge.js 5 call_too_many.js always_plus_one.js always_challenge.js
 ```
-Then you can do
-```bash
-nc localhost 7777
-```
-to play against naive.py
 

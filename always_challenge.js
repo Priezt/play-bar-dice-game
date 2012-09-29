@@ -9,18 +9,7 @@ process.stdin.on('data', function(data){
 });
 
 function ai_func(game){
-	if(game.history.length == 0){
-		return {
-			announce: {
-				dice_face: 2,
-				count: 1
-			}
-		};
-	}
 	return {
-		announce: {
-			dice_face: _.last(game.history).announce.dice_face,
-			count: (_.last(game.history).announce.count + 1)
-		}
+		"challenge":true
 	};
 }
