@@ -1,0 +1,24 @@
+{
+	game_finished: <true|false>,
+	player_count: <number of players>,
+	dice_per_player: <how many dice in each player's hand>,
+	loser_name: <name of the loser>, // only available if game_finished == true
+	all_hands: { // all players' hands, only available if game_finished == true
+		<player name 1>: [dice list], // exp. [1, 1, 2, 3, 6]
+		...
+	},
+	my_hand: [dice list], // dice in your hand
+	my_name: <your player name>,
+	history: [ // all players' announcements in current game until now
+		{
+			name: <player's name>,
+			challenge: <true|false>, // if one doesn't believe his former player's announcement
+			announce: {
+				dice_face: <which face of the dice>,
+				count: <how many dice>
+			}
+		},
+		...
+	]
+}
+

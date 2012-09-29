@@ -1,0 +1,8 @@
+{
+	challenge: <true|false>, // whether you believe your former player's announcement or not
+	announce: { // no need is challenge==true
+		dice_face: <which face of the dice>,
+		count: <how many dice>
+	}
+}
+

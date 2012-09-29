@@ -1,0 +1,8 @@
+<JUDGE PROGRAM> -d <dice per player> <PLAYER PROGRAM 1> <PLAYER PROGRAM 2> <PLAYER PROGRAM 3> ...
+
+<JP> write JSON format text defined in "unified_format_input.json" to <PP1>. <PP1> read JSON format text from <STDIN> and make decision, then write JSON format text defined in "unified_format_output.json" to <STDOUT>.
+<JP> turned to <PP2> and so on.
+...
+If <JP> detects that the game is end, it will write game result in JSON format text defined in "unified_format_input.json" to all player programs.
+
+So, a player program needs only to read game status from <STDIN> and write its decision to <STDOUT>.
