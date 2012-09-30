@@ -2,9 +2,16 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('./underscore');
 var spawn = require('child_process').spawn;
 
+var debug_mode = true;
 var current_player_index = 0;
 var loser_player_index = 0;
-var dice_per_player = parseInt(process.argv[2]);
+var dice_per_player;
+var start_argv_index = 2;
+if(process.argv[2] == "-s"){
+	start_argv_index++;
+	debug_mode = false;
+}
+var dice_per_player = parseInt(process.argv[start_argv_index]);
 var aid = 1;
 var history = [];
 var round = 0;
@@ -17,7 +24,7 @@ function generate_hand(){
 }
 
 var players = _.chain(process.argv)
-	.rest(3)
+	.rest(start_argv_index + 1)
 	.map(function(prg){
 		var player = {};
 		player.name = prg + "_" + (aid++);
@@ -38,12 +45,12 @@ var players = _.chain(process.argv)
 	})
 	.value();
 
-console.log(players);
+if(debug_mode)console.log(players);
 //process.stdout.write(JSON.stringify(players));
 
 var game = new EventEmitter();
 game.on('start', function(){
-	console.log('game start');
+	if(debug_mode)console.log('game start');
 	game.emit('one_turn');
 });
 game.on('one_turn', function(){
@@ -64,11 +71,12 @@ game.on('one_turn', function(){
 		var cp = players[current_player_index];
 		var player_move = JSON.parse(data);
 		player_move.name = cp.name;
-		console.log(player_move);
+		if(debug_mode)console.log(player_move);
 		history.push(player_move);
 		var result = check_finish();
 		if(result){
-			console.log("loser: " + players[loser_player_index].name);
+			if(debug_mode)console.log("loser: " + players[loser_player_index].name);
+			if(!debug_mode)process.stdout.write(players[loser_player_index].name.replace(/_[0-9]{1,3}$/, "") + "\n");
 			send_result();
 		}else{
 			current_player_index++;
@@ -99,7 +107,7 @@ function send_result(){
 			end_count++;
 			//console.log("got end response");
 			if(end_count >= players.length){
-				console.log("game end");
+				if(debug_mode)console.log("game end");
 				process.exit();
 			}
 		});
