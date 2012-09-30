@@ -134,7 +134,7 @@ function check_finish(){
 			.filter(function(face){
 				if(target_announce.dice_face == face){
 					return true;
-				}else if(one_used && (face == 1)){
+				}else if(!one_used && (face == 1)){
 					return true;
 				}else{
 					return false;
